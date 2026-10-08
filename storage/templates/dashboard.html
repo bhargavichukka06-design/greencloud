@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GreenCloud Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f1f8f4;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #198754;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 26px;
+        }
+
+        .logout {
+            background-color: white;
+            color: #198754;
+            text-decoration: none;
+            padding: 9px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            color: #198754;
+            margin-bottom: 8px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            font-size: 25px;
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .upload-box {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .upload-box h3 {
+            color: #198754;
+            margin-bottom: 15px;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #198754;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #146c43;
+        }
+
+        .message {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .files-box {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .files-box h3 {
+            color: #198754;
+            margin-bottom: 20px;
+        }
+
+        .file-item {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: bold;
+            margin-bottom: 7px;
+            word-break: break-word;
+        }
+
+        .file-details {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .delete-btn:hover {
+            background-color: #bb2d3b;
+        }
+
+        .no-files {
+            text-align: center;
+            color: #777;
+            padding: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 15px 20px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <h1>🌱 GreenCloud</h1>
+
+        <a href="{% url 'logout' %}" class="logout">
+            Logout
+        </a>
+
+    </header>
+
+
+    <div class="container">
+
+        <div class="welcome">
+
+            <h2>
+                Welcome, {{ request.user.username }}! 👋
+            </h2>
+
+            <p>
+                Manage your files and monitor storage and carbon impact.
+            </p>
+
+        </div>
+
+
+        {% if message %}
+
+            <div class="message">
+                {{ message }}
+            </div>
+
+        {% endif %}
+
+
+        <div class="stats">
+
+            <div class="card">
+
+                <h3>📁 Total Files</h3>
+
+                <p>
+                    {{ total_files }}
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>💾 Storage Used</h3>
+
+                <p>
+                    {{ storage_used }} MB
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>🌱 Total Carbon Impact</h3>
+
+                <p>
+                    {{ total_carbon|floatformat:2 }}
+                    {{ carbon_unit }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="upload-box">
+
+            <h3>📤 Upload a File</h3>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <input
+                    type="file"
+                    name="file"
+                    required
+                >
+
+                <button type="submit">
+                    Upload
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="files-box">
+
+            <h3>📂 Uploaded Files</h3>
+
+
+            {% if files %}
+
+                {% for file in files %}
+
+                    <div class="file-item">
+
+                        <div class="file-info">
+
+                            <div class="file-name">
+                                📄 {{ file.file_name }}
+                            </div>
+
+                            <div class="file-details">
+
+                                <div>
+                                    File Size:
+                                    {{ file.file_size|floatformat:2 }} MB
+                                </div>
+
+                                <div>
+                                    Carbon Impact:
+                                    {{ file.carbon_impact|floatformat:4 }} g CO₂
+                                </div>
+
+                                <div>
+                                    Uploaded:
+                                    {{ file.uploaded_at|date:"M d, Y, g:i A" }}
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <a href="{% url 'view_file' file.id %}" target="_blank">
+    View
+</a>
+</a>
+
+<a href="{{ file.file.url }}" download>
+    Download
+</a>
+
+                        <a
+                            href="{% url 'delete_file' file.id %}"
+                            class="delete-btn"
+                            onclick="return confirm('Are you sure you want to delete this file?');"
+                        >
+                            Delete
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% else %}
+
+                <div class="no-files">
+                    No files uploaded yet.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GreenCloud - Home</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #dff5e1, #ffffff);
+            color: #333;
+        }
+
+        /* Navigation Bar */
+
+        nav {
+            width: 100%;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .login-btn {
+            color: #198754;
+            border: 1px solid #198754;
+        }
+
+        .login-btn:hover {
+            background: #198754;
+            color: white;
+        }
+
+        .register-btn {
+            background: #198754;
+            color: white;
+        }
+
+        .register-btn:hover {
+            background: #146c43;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+
+        .hero {
+            min-height: 75vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .icon {
+            font-size: 65px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            color: #198754;
+            margin-bottom: 15px;
+        }
+
+        .hero h2 {
+            font-size: 25px;
+            color: #333;
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: #666;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .start-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 32px;
+            background: #198754;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .start-btn:hover {
+            background: #146c43;
+            transform: translateY(-3px);
+        }
+
+        /* Features */
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 20px 7% 60px;
+        }
+
+        .feature-card {
+            width: 270px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .feature-icon {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            color: #198754;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            color: #777;
+            font-size: 13px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .nav-links a {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero h2 {
+                font-size: 20px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+
+        <div class="logo">
+            🌱 GreenCloud
+        </div>
+
+        <div class="nav-links">
+            <a href="/login/" class="login-btn">Login</a>
+            <a href="/register/" class="register-btn">Register</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Hero Section -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="icon">
+                ☁️🌱
+            </div>
+
+            <h1>GreenCloud</h1>
+
+            <h2>Carbon-Aware Personal Storage System</h2>
+
+            <p>
+                Store your files securely while understanding their
+                environmental impact. GreenCloud helps you manage your
+                personal files, detect duplicate files, monitor storage
+                usage, and track estimated carbon impact.
+            </p>
+
+            <a href="/register/" class="start-btn">
+                Get Started →
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Features -->
+
+    <section class="features">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">📁</div>
+
+            <h3>Easy File Storage</h3>
+
+            <p>
+                Upload and manage your personal files in one place.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">♻️</div>
+
+            <h3>Duplicate Detection</h3>
+
+            <p>
+                Detect exact duplicate files before storing another copy.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">🌱</div>
+
+            <h3>Carbon Awareness</h3>
+
+            <p>
+                View the estimated carbon impact of your stored files.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">📊</div>
+
+            <h3>Storage Monitoring</h3>
+
+            <p>
+                Track your total files and storage usage through the dashboard.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        🌍 GreenCloud — Store smarter. Save storage. Reduce carbon impact.
+
+    </footer>
+
+</body>
+
+</html>
+
