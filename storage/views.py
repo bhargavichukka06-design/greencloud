@@ -229,13 +229,15 @@ def dashboard(request):
             'carbon_unit': carbon_unit
         }
     )
+@login_required
 def view_file(request, file_id):
 
-    file = UploadedFile.objects.get(id=file_id)
+    file = UploadedFile.objects.get(
+        id=file_id,
+        user=request.user
+    )
 
-    if file.user != request.user:
-        return redirect('dashboard')
-
+    # DOCX
     if file.file_name.lower().endswith('.docx'):
 
         with file.file.open('rb') as docx_file:
@@ -243,9 +245,12 @@ def view_file(request, file_id):
 
         return render(request, 'view_file.html', {
             'file_name': file.file_name,
-            'content': result.value
+            'content': result.value,
+            'original_file_url': file.file.url
         })
-    if file.file_name.lower().endswith('.pptx'):
+
+    # PPTX
+    elif file.file_name.lower().endswith('.pptx'):
 
         presentation = Presentation(file.file.path)
 
@@ -257,29 +262,31 @@ def view_file(request, file_id):
 
             for shape in slide.shapes:
 
-                if hasattr(shape, "text"):
-                    if shape.text.strip():
-                        slide_text.append(shape.text)
+                if hasattr(shape, "text") and shape.text.strip():
+                    slide_text.append(shape.text)
 
             slides_content.append(slide_text)
 
         return render(request, 'view_ppt.html', {
             'file_name': file.file_name,
-            'slides': slides_content
+            'slides': slides_content,
+            'original_file_url': file.file.url
         })
+
+    # PDF, images, etc.
     return redirect(file.file.url)
 @login_required
 def delete_file(request, file_id):
 
-    file = UploadedFile.objects.get(id=file_id)
+    file = UploadedFile.objects.get(
+        id=file_id,
+        user=request.user
+    )
 
-    if file.user == request.user:
-
-        file.file.delete()
-        file.delete()
+    file.file.delete()
+    file.delete()
 
     return redirect('dashboard')
-
 
 def logout_view(request):
 
